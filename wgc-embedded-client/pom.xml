@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>ch.so.agi</groupId>
+    <artifactId>wgc-embedded</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>wgc-embedded-client</artifactId>
+  <packaging>gwt-app</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.gwtproject</groupId>
+      <artifactId>gwt-user</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.gwtproject</groupId>
+      <artifactId>gwt-dev</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.dominokit</groupId>
+      <artifactId>domino-ui</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.dominokit</groupId>
+      <artifactId>domino-ui</artifactId>
+      <version>2.0.0</version>
+      <classifier>sources</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.elemento</groupId>
+      <artifactId>elemento-core</artifactId>
+      <version>1.4.8</version>
+    </dependency>
+
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>wgc-embedded-shared</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>wgc-embedded-shared</artifactId>
+      <version>${project.version}</version>
+      <classifier>sources</classifier>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>net.ltgt.gwt.maven</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <configuration>
+          <moduleName>ch.so.agi.wgc.App</moduleName>
+          <moduleShortName>app</moduleShortName>
+          <workDir>${basedir}/target/gwt/workDir</workDir>
+          <compilerArgs>
+            <arg>-gen</arg>
+            <arg>${basedir}/target/gwt/gen</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
