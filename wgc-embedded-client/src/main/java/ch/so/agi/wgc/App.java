@@ -24,6 +24,7 @@ public class App implements EntryPoint {
         DominoThemeManager.INSTANCE.apply(DominoThemeAccent.BLUE); 
 
         console.log("Hallo Welt.");
+        console.log("fubar");
 
         body().add(TextBox.create().setLabel("User name")
                                 .setPlaceholder("Username").element());
