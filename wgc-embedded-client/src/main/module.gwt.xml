@@ -8,7 +8,6 @@
   <extend-property name="locale" values="de_CH" />
   <set-property name="locale" value="de_CH" />
 
-  <inherits name="org.dominokit.domino.ui.DominoUI" />
   <inherits name="org.jboss.elemento.Core" />
 
   <source path="" />

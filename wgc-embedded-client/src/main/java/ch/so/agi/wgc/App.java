@@ -12,12 +12,6 @@ import elemental2.core.Global;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.URL;
 
-import org.dominokit.domino.ui.themes.DominoThemeManager;
-import org.dominokit.domino.ui.themes.DominoThemeAccent;
-import org.dominokit.domino.ui.themes.DominoThemeLight;
-
-import org.dominokit.domino.ui.forms.TextBox;
-
 public class App implements EntryPoint {
 
     private static final String API_ENDPOINT_CONFIG = "/config";
@@ -47,6 +41,7 @@ public class App implements EntryPoint {
 //            console.log(myConfig.basemaps.get(0));
             
             console.log(myConfig.basemaps[0].url);
+            console.log(myConfig.basemaps[1].url);
             
 //            JsPropertyMap<Object> responseMap = Js.asPropertyMap(Global.JSON.parse(json));
 //            JsPropertyMap<Object> profilesMap = Js.asPropertyMap(responseMap.get("profiles"));
@@ -70,13 +65,11 @@ public class App implements EntryPoint {
     }
     
     private void init() {
-        DominoThemeManager.INSTANCE.apply(DominoThemeLight.INSTANCE);
-        DominoThemeManager.INSTANCE.apply(DominoThemeAccent.BLUE); 
 
         console.log("Hallo Welt.");
         console.log("fubar");
 
-        body().add(TextBox.create().setLabel("User name")
-                                .setPlaceholder("Username").element());        
+//        body().add(TextBox.create().setLabel("User name")
+//                                .setPlaceholder("Username").element());        
     }
 }

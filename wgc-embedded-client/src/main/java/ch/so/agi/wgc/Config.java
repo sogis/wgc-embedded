@@ -4,6 +4,7 @@ import static jsinterop.annotations.JsPackage.GLOBAL;
 
 import java.util.List;
 
+import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 @JsType(isNative = true, namespace = GLOBAL, name = "Object")
@@ -16,7 +17,7 @@ public class Config {
      * Sonstige Config (z.B. scales) sind hardcodiert.
      */
     @JsType(isNative = true, namespace = GLOBAL, name = "Object")
-    public class BasemapConfig {
+    public static class BasemapConfig {
         public String url;
         public String[] layers;
 
