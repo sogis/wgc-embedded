@@ -1,5 +1,10 @@
 # wgc-embedded
 
+1. Map Element
+2. onChangeBasemap
+3. Wmts-/WmsManager
+
+
 ## Entwicklung
 
 ### Run 
