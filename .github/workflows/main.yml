@@ -18,6 +18,8 @@ jobs:
         run: echo "Build number is $BUILD_NUMBER"
 
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Mirror commits to Codeberg
         uses: spyoungtech/mirror-action@v0.7.0
