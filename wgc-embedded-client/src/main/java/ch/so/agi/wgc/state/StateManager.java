@@ -38,5 +38,5 @@ public class StateManager {
         }
     }
     
-    public static final String STATE_PARAM_APP_BASE_URL = "state.param.app.base_url";
+    public static final String PARAM_APP_BASE_URL = "state.param.app.base_url";
 }

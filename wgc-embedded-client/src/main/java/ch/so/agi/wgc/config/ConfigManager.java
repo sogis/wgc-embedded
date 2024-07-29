@@ -23,7 +23,7 @@ public class ConfigManager {
     
     public void loadConfig() {
         StateManager stateManager = StateManager.getInstance();
-        console.log(stateManager.getState(StateManager.STATE_PARAM_APP_BASE_URL));
+        console.log(stateManager.getState(StateManager.PARAM_APP_BASE_URL));
         
         console.log("load config");
     }

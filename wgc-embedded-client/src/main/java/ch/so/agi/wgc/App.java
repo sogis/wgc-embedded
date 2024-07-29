@@ -27,7 +27,7 @@ public class App implements EntryPoint {
         pathname = url.pathname.length()==1?"":url.pathname;
 
         StateManager stateManager = StateManager.getInstance();
-        stateManager.setState(StateManager.STATE_PARAM_APP_BASE_URL, protocol + "//" + host + pathname);
+        stateManager.setState(StateManager.PARAM_APP_BASE_URL, protocol + "//" + host + pathname);
         
         ConfigManager configManager = ConfigManager.getInstance();
         configManager.loadConfig();
