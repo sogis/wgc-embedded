@@ -12,6 +12,8 @@ import elemental2.dom.XMLHttpRequest;
 public class ConfigManager {
     private static ConfigManager INSTANCE;
     
+    public static final String API_ENDPOINT_CONFIG = "/config";
+
     private Config config = null;
     
     public static ConfigManager getInstance() {
@@ -31,7 +33,7 @@ public class ConfigManager {
         console.log(stateManager.getState(StateManager.PARAM_APP_BASE_URL));
         
         String appBaseUrl = stateManager.getState(StateManager.PARAM_APP_BASE_URL);
-        String request = appBaseUrl + Constants.API_ENDPOINT_CONFIG;
+        String request = appBaseUrl + API_ENDPOINT_CONFIG;
         console.log("load config");
         
         XMLHttpRequest httpRequest = new XMLHttpRequest();
