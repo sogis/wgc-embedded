@@ -3,10 +3,6 @@
     {
       "url": "https://geo.so.ch/api/wmts/1.0.0/{Layer}/default/2056/{TileMatrix}/{TileRow}/{TileCol}",
       "layers": ["ch.so.agi.hintergrundkarte_sw", "ch.so.agi.hintergrundkarte_farbig", "ch.so.agi.hintergrundkarte_ortho"]
-    },
-    {
-      "url": "https://XXXXXX.so.ch/api/wmts/1.0.0/{Layer}/default/2056/{TileMatrix}/{TileRow}/{TileCol}",
-      "layers": ["XXXXXXch.so.agi.hintergrundkarte_sw", "ch.so.agi.hintergrundkarte_farbig", "ch.so.agi.hintergrundkarte_ortho"]
     }
   ] 
 }

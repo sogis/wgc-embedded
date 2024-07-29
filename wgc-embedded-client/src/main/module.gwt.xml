@@ -9,6 +9,8 @@
   <set-property name="locale" value="de_CH" />
 
   <inherits name="org.jboss.elemento.Core" />
+  <inherits name='ol.GwtOL'/>
+  <inherits name="proj4.GwtProj4"/>
 
   <source path="" />
 

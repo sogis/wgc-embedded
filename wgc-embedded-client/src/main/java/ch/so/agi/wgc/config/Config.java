@@ -1,4 +1,4 @@
-package ch.so.agi.wgc;
+package ch.so.agi.wgc.config;
 
 import static jsinterop.annotations.JsPackage.GLOBAL;
 
@@ -10,15 +10,19 @@ import jsinterop.annotations.JsType;
 @JsType(isNative = true, namespace = GLOBAL, name = "Object")
 public class Config {
     // Für unseren Usecase müsste es nicht einmal List sein.
-    public BasemapConfig[] basemaps;
+    @JsProperty
+    public Basemap[] basemaps;
     
     /*
      * Momentan nur Layer vom gleichen WMTS möglich.
      * Sonstige Config (z.B. scales) sind hardcodiert.
      */
     @JsType(isNative = true, namespace = GLOBAL, name = "Object")
-    public static class BasemapConfig {
+    public static class Basemap {
+        @JsProperty
         public String url;
+        
+        @JsProperty
         public String[] layers;
 
 //        public String getUrl() {
