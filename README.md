@@ -24,6 +24,14 @@ Or without downloading all the snapshots again:
 ./mvnw gwt:codeserver -pl *-client -am -nsu 
 ```
 
+Falls der Client (der Codeserver) nicht startet und es eine Fehlermeldung bezüglich eine bereits verwendeten Ports wirf, kann man den Codeserver auch abschiessen:
+
+```
+netstat -vanp tcp | grep 9876
+```
+
+Und anschliessendes `kill -9 <PID>`.
+
 
 ## Links
 

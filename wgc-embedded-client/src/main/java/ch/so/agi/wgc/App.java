@@ -13,6 +13,7 @@ import ch.so.agi.wgc.state.StateManager;
 import elemental2.core.Global;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.URL;
+import elemental2.promise.Promise;
 
 public class App implements EntryPoint {
 
@@ -30,42 +31,16 @@ public class App implements EntryPoint {
         stateManager.setState(StateManager.PARAM_APP_BASE_URL, protocol + "//" + host + pathname);
         
         ConfigManager configManager = ConfigManager.getInstance();
-        configManager.loadConfig();
+        Promise<Config> configPromise = configManager.loadConfig();
         
-        init();
-//        DomGlobal.fetch(requestUrl).then(response -> {
-//            if (!response.ok) {
-//                DomGlobal.window.alert(response.statusText + ": " + response.body);
-//                return null;
-//            }
-//            return response.text();
-//        }).then(json -> {            
-//            console.log(json);
-//            
-//            Config myConfig = (Config) Global.JSON.parse(json);
-////            console.log(myConfig.basemaps.get(0));
-//            
-//            console.log(myConfig.basemaps[0].url);
-//            
-////            JsPropertyMap<Object> responseMap = Js.asPropertyMap(Global.JSON.parse(json));
-////            JsPropertyMap<Object> profilesMap = Js.asPropertyMap(responseMap.get("profiles"));
-////            profiles = new HashMap<>();
-////            profilesMap.forEach(new JsForEachCallbackFn() {
-////                @Override
-////                public void onKey(String key) {
-////                    String value = String.valueOf(profilesMap.get(key));
-////                    profiles.put(key, value);
-////                }                
-////            });
-//            init(); 
-//            return null;
-//        }).catch_(error -> {
-//            console.log(error);
-//            DomGlobal.window.alert(error.toString());
-//            return null;
-//        });
-
-        
+        Promise.all(configPromise).then(resolved -> {
+            init();
+            return null;
+        }).catch_(error -> {
+            console.log(error);
+            DomGlobal.window.alert(error.toString());
+            return null;
+        });        
     }
     
     private void init() {
