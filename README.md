@@ -2,7 +2,8 @@
 
 1. Map Element
 2. onChangeBasemap
-3. Wmts-/WmsManager
+3. Wmts-/WmsManager 
+- wo ist layer add?
 
 
 ## Entwicklung
