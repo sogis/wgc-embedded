@@ -38,3 +38,4 @@ Und anschliessendes `kill -9 <PID>`.
 - https://graalvm.github.io/native-build-tools/latest/maven-plugin.html
 - https://graalvm.github.io/native-build-tools/latest/maven-plugin-quickstart.html
 - https://docs.spring.io/spring-boot/reference/packaging/native-image/index.html
+- https://app.gitter.im/#/room/#gwtproject_gwt:gitter.im
