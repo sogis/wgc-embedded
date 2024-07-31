@@ -4,6 +4,7 @@
 2. onChangeBasemap
 3. Wmts-/WmsManager 
 - wo ist layer add? https://gitlab.com/geogirafe/gg-viewer/-/blob/main/src/components/map/tools/wmtsmanager.ts?ref_type=heads
+onChangeBasemap in in Map-Komponente. basemap ist ein Model.
 
 
 ## Entwicklung
