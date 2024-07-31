@@ -23,6 +23,9 @@ public class Config {
         public String url;
         
         @JsProperty
+        public double[] resolutions;
+        
+        @JsProperty
         public String[] layers;
 
 //        public String getUrl() {

@@ -3,7 +3,7 @@
 1. Map Element
 2. onChangeBasemap
 3. Wmts-/WmsManager 
-- wo ist layer add?
+- wo ist layer add? https://gitlab.com/geogirafe/gg-viewer/-/blob/main/src/components/map/tools/wmtsmanager.ts?ref_type=heads
 
 
 ## Entwicklung

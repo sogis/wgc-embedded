@@ -4,6 +4,8 @@ import org.jboss.elemento.IsElement;
 
 import ch.so.agi.wgc.MapManager;
 import ch.so.agi.wgc.ViewManager;
+import ch.so.agi.wgc.config.Config;
+import ch.so.agi.wgc.config.ConfigManager;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
@@ -21,6 +23,8 @@ import ol.tilegrid.WmtsTileGridOptions;
 
 public class MapComponent implements IsElement<HTMLElement> {
 
+    private ConfigManager configManager;
+    
     private MapManager mapManager;
     
     private ViewManager viewManager;
@@ -30,8 +34,11 @@ public class MapComponent implements IsElement<HTMLElement> {
     private HTMLDivElement mapTarget;
 
     public MapComponent() {
+        configManager = ConfigManager.getInstance();
         mapManager = MapManager.getInstance();
         viewManager = ViewManager.getInstance();
+        
+        Config config = configManager.getConfig();
         
         olMap = mapManager.getInstance().getMap();
         olMap.setTarget("ol-map");
@@ -41,8 +48,11 @@ public class MapComponent implements IsElement<HTMLElement> {
         
         // Testen wie sich TileGrid verhält? Wohin gehört es? Muss es dem WMTS-Layer entsprechen oder muss es zur View-Resolution passen?
         
-        double resolutions[] = new double[] { 4000.0, 2000.0, 1000.0, 500.0, 250.0, 100.0, 50.0, 20.0, 10.0, 5.0, 2.5, 1.0, 0.5, 0.25, 0.1 };
+        //double resolutions[] = new double[] { 4000.0, 2000.0, 1000.0, 500.0, 250.0, 100.0, 50.0, 20.0, 10.0, 5.0, 2.5, 1.0, 0.5, 0.25, 0.1 };
+//        double resolutions[] = new double[] { 4000.0, 2000.0, 1000.0, 500.0, 250.0, 100.0, 50.0, 20.0, 10.0, 5.0, 2.5, 1.0, 0.5, 0.25, 0.1 };
 
+        double resolutions[] = config.basemaps[0].resolutions;
+        
         
  // viewOptions.setResolutions(new double[] { 4000.0, 2000.0, 1000.0, 500.0, 250.0, 100.0, 50.0, 20.0, 10.0, 5.0, 2.5, 1.0, 0.5, 0.25, 0.1 });
 
