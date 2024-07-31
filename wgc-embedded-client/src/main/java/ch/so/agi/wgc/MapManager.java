@@ -1,7 +1,9 @@
 package ch.so.agi.wgc;
 
+import ol.Collection;
 import ol.MapOptions;
 import ol.OLFactory;
+import ol.control.Control;
 import ol.interaction.DefaultInteractionsOptions;
 import ol.interaction.Interaction;
 import ol.interaction.MouseWheelZoom;
@@ -20,27 +22,28 @@ public class MapManager {
             
             MouseWheelZoomOptions mouseWheelZoomOptions = new MouseWheelZoomOptions();
             mouseWheelZoomOptions.setConstrainResolution(true);
-            
+            MouseWheelZoom mouseWheelZoom = new MouseWheelZoom(mouseWheelZoomOptions);
             
             DefaultInteractionsOptions interactionOptions = new ol.interaction.DefaultInteractionsOptions();
             interactionOptions.setPinchRotate(false);
+            interactionOptions.setDoubleClickZoom(true);
+            mapOptions.setInteractions(Interaction.defaults(interactionOptions));
             
-            MouseWheelZoom mwz = new MouseWheelZoom();
-           
+            mapOptions.setControls(new Collection<Control>());
+
+            olMap = new ol.Map(mapOptions);
+            olMap.addInteraction(mouseWheelZoom);
+            
+            
 //            mwz.set("constrainResolution", true);
 //            interactionOptions.setConstrainResolution(true);
-//            interactionOptions.setDoubleClickZoom(false);
-//            mapOptions.setInteractions(Interaction.defaults(interactionOptions));
+
             
 //            console.log(mwz.getProperties());
             
             
             // siehe https://github.com/TDesjardins/gwt-ol/commit/2fa5b8cd39f221dba34f9e361ef96559985037c6 
             // Konstruktor mit options
-            
-            olMap = new ol.Map(mapOptions);
-            
-
         }
         
         return INSTANCE;

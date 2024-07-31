@@ -1,1 +1,20 @@
 /** Add css rules here for your application. */
+
+html,
+body {
+    margin: 0;
+    background: #FFFFFF;
+    height: 100%; 
+    /*
+    font-smooth: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    */
+}
+
+#ol-map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;    
+}

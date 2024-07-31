@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.google.gwt.core.client.EntryPoint;
 
+import ch.so.agi.wgc.components.MapComponent;
 import ch.so.agi.wgc.config.Config;
 import ch.so.agi.wgc.config.ConfigManager;
 import ch.so.agi.wgc.state.StateManager;
@@ -47,6 +48,9 @@ public class App implements EntryPoint {
 
         console.log("Hallo Welt.");
         console.log("fubar");
+
+        
+        MapComponent mapComponent = new MapComponent();
 
 //        body().add(TextBox.create().setLabel("User name")
 //                                .setPlaceholder("Username").element());        
