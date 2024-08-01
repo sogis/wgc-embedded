@@ -33,7 +33,7 @@ public class ConfigManager {
     public Promise<Config> loadConfig() {
         StateManager stateManager = StateManager.getInstance();
 
-        String appBaseUrl = stateManager.getState(StateManager.PARAM_APP_BASE_URL);
+        String appBaseUrl = (String) stateManager.getState(StateManager.PARAM_APP_BASE_URL);
         String request = appBaseUrl + API_ENDPOINT_CONFIG;
 
         if (loadingPromise != null) {
