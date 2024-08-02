@@ -16,6 +16,9 @@ public class Config {
     @JsProperty
     public String baseUrlWms;
     
+    @JsProperty
+    public String baseUrlWgc;
+    
     /*
      * Momentan nur Layer vom gleichen WMTS möglich.
      * Sonstige Config (z.B. scales) sind hardcodiert.
@@ -29,7 +32,7 @@ public class Config {
         public double[] resolutions;
         
         @JsProperty
-        public String[] layers;
+        public BasemapLayer[] layers;
 
 //        public String getUrl() {
 //            return url;
@@ -43,5 +46,14 @@ public class Config {
 //        public void setLayers(List<String> layers) {
 //            this.layers = layers;
 //        }
+    }
+    
+    @JsType(isNative = true, namespace = GLOBAL, name = "Object")
+    public static class BasemapLayer {
+        @JsProperty
+        public String id;
+        
+        @JsProperty 
+        public String title;
     }
 }

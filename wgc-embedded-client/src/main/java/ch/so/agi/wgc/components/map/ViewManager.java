@@ -10,6 +10,8 @@ import ol.proj.Projection;
 import ol.proj.ProjectionOptions;
 import proj4.Proj4;
 
+import static elemental2.dom.DomGlobal.console;
+
 public class ViewManager {    
     private static ConfigManager configManager;
     
@@ -45,5 +47,10 @@ public class ViewManager {
     
     public void setZoomLevel(int zoomLevel) {
         view.setZoom(zoomLevel);
+    }
+    
+    public void setScale(int scale) {
+        double res = scale / (378.0 / 0.1);
+        view.setResolution(res);
     }
 }

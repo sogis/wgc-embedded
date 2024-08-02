@@ -42,5 +42,4 @@ public class MapManager {
     public ol.Map getMap() {
         return olMap;
     }
-
 }

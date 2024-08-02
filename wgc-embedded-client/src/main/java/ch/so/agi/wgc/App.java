@@ -13,8 +13,9 @@ import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Window;
 
+import ch.so.agi.wgc.components.browser.BrowserUrlComponent;
 import ch.so.agi.wgc.components.map.MapComponent;
-import ch.so.agi.wgc.components.wgclink.WgcLinkComponent;
+import ch.so.agi.wgc.components.wgc.WgcLinkComponent;
 import ch.so.agi.wgc.config.Config;
 import ch.so.agi.wgc.config.ConfigManager;
 import ch.so.agi.wgc.models.WmsLayer;
@@ -59,6 +60,7 @@ public class App implements EntryPoint {
         MapComponent mapComponent = new MapComponent();
         WgcLinkComponent wgcLinkComponent = new WgcLinkComponent();
         body().add(wgcLinkComponent.element());
+        BrowserUrlComponent browserUrlComponent = new BrowserUrlComponent();
         
         String bgLayer = null;
         if (Window.Location.getParameter("bl") != null) {
@@ -118,15 +120,15 @@ public class App implements EntryPoint {
 
         if (Window.Location.getParameter("z") != null) {
             String zoomLevel = Window.Location.getParameter("z");
-            stateManager.setState(StateManager.PARAM_MAP_ZOOM_LEVEL, Integer.valueOf(zoomLevel));
+            stateManager.setState(StateManager.PARAM_MAP_ZOOM_LEVEL, Double.valueOf(zoomLevel).intValue());
         }
         
+        if (Window.Location.getParameter("s") != null) {
+            String scale = Window.Location.getParameter("s");
+            stateManager.setState(StateManager.PARAM_MAP_SCALE, Double.valueOf(scale).intValue());
+        }
         
 //        body().add(TextBox.create().setLabel("User name")
 //                                .setPlaceholder("Username").element());        
-    }
-    
-    private static native void updateURLWithoutReloading(String newUrl) /*-{
-        $wnd.history.pushState(newUrl, "", newUrl);
-    }-*/; 
+    }    
 }

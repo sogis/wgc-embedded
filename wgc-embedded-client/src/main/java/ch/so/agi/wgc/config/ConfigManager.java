@@ -58,6 +58,7 @@ public class ConfigManager {
                 }).then(textConfig -> {
                     config = Js.cast(Global.JSON.parse(textConfig));
                     
+//                    console.log(config.basemaps[0].layers[0].title);
 //                    String id = config.basemaps[0].url;
 //                    console.log(id);
 //                    double[] resolutions = config.basemaps[0].resolutions;

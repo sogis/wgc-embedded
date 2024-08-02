@@ -2,14 +2,13 @@ package ch.so.agi.wgc.components.map;
 
 import org.jboss.elemento.IsElement;
 
+import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Window;
 
 import static elemental2.dom.DomGlobal.console;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ch.so.agi.wgc.config.Config;
 import ch.so.agi.wgc.config.ConfigManager;
 import ch.so.agi.wgc.models.WmsLayer;
 import ch.so.agi.wgc.state.StateManager;
@@ -56,32 +55,59 @@ public class MapComponent implements IsElement<HTMLElement> {
 
             @Override
             public void onEvent(MapEvent event) {
-                console.log("zoom / pan");
-                
-                
-                // hier die url basteln und dann als State verwalten 
-                // update der Url in separater BrowserUrl Componente
-                
                 String newUrl = Window.Location.getProtocol() + "//" + Window.Location.getHost() + Window.Location.getPath();
                 newUrl += "?bl=" + (String) stateManager.getState(StateManager.PARAM_ACTIVE_BASEMAP);
-                console.log("newUrl1 : " + newUrl);
+
+                List<WmsLayer> wmsLayers = (List<WmsLayer>) stateManager.getState(StateManager.PARAM_ACTIVE_FOREGROUND_LAYERS);
+                String layerNames = "";
+                for (int i=0; i<wmsLayers.size(); i++) {
+                    WmsLayer wmsLayer = wmsLayers.get(i);
+                    String layerName = wmsLayer.getName();
+                    int transparency = wmsLayer.getTransparency();
+                    boolean isVisible = wmsLayer.getIsVisible();
+                    
+                    if (transparency > 0) {
+                        layerName += "%5B" + String.valueOf(transparency) + "%5D";
+                    }
+                    
+                    if (!isVisible) {
+                        layerName += "%21";
+                    }
+                    
+                    if (i != wmsLayers.size() - 1) {
+                        layerName += ",";
+                    }
+                    
+                    layerNames += layerName;
+                }
+                newUrl += "&l=" + layerNames;
                 
                 View view = olMap.getView();                
                 Extent extent = view.calculateExtent(olMap.getSize());
                 double easting = extent.getLowerLeftX() + (extent.getUpperRightX() - extent.getLowerLeftX()) / 2;
                 double northing = extent.getLowerLeftY() + (extent.getUpperRightY() - extent.getLowerLeftY()) / 2;
 
-
+                newUrl += "&c=" + String.valueOf(easting) + "," + String.valueOf(northing);
+//                newUrl += "&z=" + String.valueOf(Double.valueOf(view.getZoom()).intValue());
+//                newUrl += "&z=" + String.valueOf(view.getZoom());
                 
-            }
-            
+                int scale = (int) (view.getResolution() * (378.0 / 0.1)); // TODO Validate calculation. Habe ich aus einer Liste von mir... Original war 357.14, das passt weniger gut zum Web GIS Client.
+                newUrl += "&s=" + String.valueOf(scale);
+
+                // Dann wird es nochmals encoded und funktioniert nicht mehr.
+                String newUrlEncoded = URL.encode(newUrl);
+                
+                stateManager.setState(StateManager.PARAM_BROWSER_URL, newUrl);
+            }    
         });
         
-
         stateManager.subscribe(StateManager.PARAM_ACTIVE_BASEMAP, (oldBasemap, newBasemap) -> onAddBasemap((String)newBasemap));
         stateManager.subscribe(StateManager.PARAM_ACTIVE_FOREGROUND_LAYERS, (oldForegroundLayers, newForegroundLayers) -> onForegroundLayers((List<WmsLayer>)newForegroundLayers));
         stateManager.subscribe(StateManager.PARAM_MAP_CENTER, (oldMapCenter, newMapCenter) -> onChangeMapCenter((Coordinate) newMapCenter));
-        stateManager.subscribe(StateManager.PARAM_MAP_ZOOM_LEVEL, (oldMapZoomLevel, newMapZoomLevel) -> onChangeZoomLevel((int) newMapZoomLevel));
+        // Entweder Zoomlevel oder Scale. Damit man den Search-String für WGC übernehmen kann, wird neu auch hier
+        // die Scale verwendet.
+        //stateManager.subscribe(StateManager.PARAM_MAP_ZOOM_LEVEL, (oldMapZoomLevel, newMapZoomLevel) -> onChangeZoomLevel((int) newMapZoomLevel));
+        stateManager.subscribe(StateManager.PARAM_MAP_SCALE, (oldMapScale, newMapScale) -> onChangeScale((int) newMapScale));
     }
     
     @Override
@@ -105,5 +131,7 @@ public class MapComponent implements IsElement<HTMLElement> {
         viewManager.setZoomLevel(zoomLevel);
     }
     
-    
+    private void onChangeScale(int scale) {
+        viewManager.setScale(scale);
+    }
 }
