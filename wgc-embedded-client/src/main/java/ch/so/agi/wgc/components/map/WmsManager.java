@@ -18,10 +18,10 @@ public class WmsManager {
     
     private Config config;
     
-    private ol.Map map;
+    private ol.Map olMap;
 
-    public WmsManager(ol.Map map) {
-        this.map = map;
+    public WmsManager(ol.Map olMap) {
+        this.olMap = olMap;
         configManager = ConfigManager.getInstance();
         config = configManager.getConfig();
     }
@@ -50,7 +50,7 @@ public class WmsManager {
             wmsLayer.setOpacity(opacity);
             wmsLayer.setVisible(forgroundLayer.getIsVisible());
             
-            map.addLayer(wmsLayer);
+            olMap.addLayer(wmsLayer);
         }
     }
 }

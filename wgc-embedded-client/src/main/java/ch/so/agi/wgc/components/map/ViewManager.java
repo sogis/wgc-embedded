@@ -38,4 +38,12 @@ public class ViewManager {
     public ol.View getView() {
         return view;
     }
+    
+    public void setCenter(Coordinate center) {
+        view.setCenter(center);
+    }
+    
+    public void setZoomLevel(int zoomLevel) {
+        view.setZoom(zoomLevel);
+    }
 }

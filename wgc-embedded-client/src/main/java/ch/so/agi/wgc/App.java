@@ -14,6 +14,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Window;
 
 import ch.so.agi.wgc.components.map.MapComponent;
+import ch.so.agi.wgc.components.wgclink.WgcLinkComponent;
 import ch.so.agi.wgc.config.Config;
 import ch.so.agi.wgc.config.ConfigManager;
 import ch.so.agi.wgc.models.WmsLayer;
@@ -22,6 +23,7 @@ import elemental2.core.Global;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.URL;
 import elemental2.promise.Promise;
+import ol.Coordinate;
 
 public class App implements EntryPoint {
 
@@ -55,6 +57,8 @@ public class App implements EntryPoint {
     
     private void init() {
         MapComponent mapComponent = new MapComponent();
+        WgcLinkComponent wgcLinkComponent = new WgcLinkComponent();
+        body().add(wgcLinkComponent.element());
         
         String bgLayer = null;
         if (Window.Location.getParameter("bl") != null) {
@@ -67,7 +71,6 @@ public class App implements EntryPoint {
             String layersParam = Window.Location.getParameter("l");
             if (layersParam != null) {
                 List<String> layerParamList = Arrays.asList(layersParam.split(",", -1));        
-                
                 for (String layerParam : layerParamList) {                   
                     // layerParam is not visible
                     boolean isVisible = true;
@@ -97,11 +100,33 @@ public class App implements EntryPoint {
                     WmsLayer wmsLayer = new WmsLayer(layerName, baseUrlWms, isVisible, transparency);
                     wmsLayerList.add(wmsLayer);
                 }
-                stateManager.setState(StateManager.PARAM_ACTIVE_LAYERS, wmsLayerList);
+                stateManager.setState(StateManager.PARAM_ACTIVE_FOREGROUND_LAYERS, wmsLayerList);
             }
         }
-                
+        
+        double easting;
+        double northing;
+        if (Window.Location.getParameter("c") != null) {
+            String center[] = Window.Location.getParameter("c").split(",");
+            easting =  Double.valueOf(center[0]);
+            northing = Double.valueOf(center[1]);
+        } else {
+            easting = 2616500;
+            northing = 1237000;
+        }
+        stateManager.setState(StateManager.PARAM_MAP_CENTER, new Coordinate(easting, northing));
+
+        if (Window.Location.getParameter("z") != null) {
+            String zoomLevel = Window.Location.getParameter("z");
+            stateManager.setState(StateManager.PARAM_MAP_ZOOM_LEVEL, Integer.valueOf(zoomLevel));
+        }
+        
+        
 //        body().add(TextBox.create().setLabel("User name")
 //                                .setPlaceholder("Username").element());        
     }
+    
+    private static native void updateURLWithoutReloading(String newUrl) /*-{
+        $wnd.history.pushState(newUrl, "", newUrl);
+    }-*/; 
 }

@@ -39,6 +39,8 @@ public class StateManager {
     }
     
     public static final String PARAM_APP_BASE_URL = "state.param.app.base_url";
-    public static final String PARAM_ACTIVE_BASEMAP = "activBasemap";
-    public static final String PARAM_ACTIVE_LAYERS = "activeLayers";
+    public static final String PARAM_ACTIVE_BASEMAP = "activeBasemap";
+    public static final String PARAM_ACTIVE_FOREGROUND_LAYERS = "activeForegroundLayers";
+    public static final String PARAM_MAP_CENTER = "mapCenter";
+    public static final String PARAM_MAP_ZOOM_LEVEL = "mapZoomLevel";
 }
