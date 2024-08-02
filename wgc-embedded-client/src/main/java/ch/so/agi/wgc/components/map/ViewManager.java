@@ -1,4 +1,4 @@
-package ch.so.agi.wgc.components;
+package ch.so.agi.wgc.components.map;
 
 import ch.so.agi.wgc.config.ConfigManager;
 import ol.Coordinate;

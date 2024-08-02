@@ -13,7 +13,7 @@ import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Window;
 
-import ch.so.agi.wgc.components.MapComponent;
+import ch.so.agi.wgc.components.map.MapComponent;
 import ch.so.agi.wgc.config.Config;
 import ch.so.agi.wgc.config.ConfigManager;
 import ch.so.agi.wgc.models.WmsLayer;

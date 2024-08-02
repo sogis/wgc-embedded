@@ -1,4 +1,4 @@
-package ch.so.agi.wgc.components;
+package ch.so.agi.wgc.components.map;
 
 import org.jboss.elemento.IsElement;
 
