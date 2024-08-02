@@ -10,9 +10,7 @@ import ol.proj.Projection;
 import ol.proj.ProjectionOptions;
 import proj4.Proj4;
 
-public class ViewManager {
-    private static ViewManager INSTANCE;
-    
+public class ViewManager {    
     private static ConfigManager configManager;
     
     private View view;
@@ -32,7 +30,7 @@ public class ViewManager {
         viewOptions.setProjection(projection);
         viewOptions.setResolutions(new double[] { 4000.0, 2000.0, 1000.0, 500.0, 250.0, 100.0, 50.0, 20.0, 10.0, 5.0, 2.5, 1.0, 0.5, 0.25, 0.1 });
         view = new View(viewOptions);
-        Coordinate centerCoordinate = new Coordinate(2616491, 1237000);
+        Coordinate centerCoordinate = new Coordinate(2616500, 1237000);
         view.setCenter(centerCoordinate);
         view.setZoom(5);        
     }
