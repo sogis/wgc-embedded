@@ -15,6 +15,7 @@ onChangeBasemap in in Map-Komponente. basemap ist ein Model.
 - http://localhost:8080/?bl=ch.so.agi.hintergrundkarte_ortho&l=ch.so.afu.ewsabfrage.abfrage%5B50%5D&c=2600779,1215505&s=22694
 
 - http://localhost:8080/index.html?bl=ch.so.agi.hintergrundkarte_ortho&l=ch.so.agi.av.grundstuecke,WMS%7C%7Chttps:%2F%2Fwfs.geodienste.ch%2Fav_0%2Fdeu%3F%7C%7CHoheitsgrenzen%7C%7C1.3.0&&c=2607457,1228667&s=3780
+- https://geo.so.ch/map/?bl=&l=ch.so.afu.ewsabfrage.abfrage%5B50%5D%21%2Cwms%3Ahttps%3A%2F%2Fwfs.geodienste.ch%2Fav_0%2Fdeu%3F%26%23Hoheitsgrenzen%5B35%5D&t=default&c=2606390%2C1227488&s=377953
 
 ### Run 
 
