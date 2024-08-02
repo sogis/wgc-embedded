@@ -39,18 +39,15 @@ public class ConfigManager {
         if (loadingPromise != null) {
             // There's already a promise for loading the configuration
             // => return it instead of starting another request
-            console.log("There's already a promise for loading the configuration.");
             return loadingPromise;
         }
 
         if (config != null) {
             // Config was already loaded.
             // => stop here
-            console.log("Config was already loaded.");
             return Promise.resolve(config);
         }
 
-        console.log("Loading Application Configuration...");
         loadingPromise = fetch(request)
                 .then(response -> {
                     if (!response.ok) {

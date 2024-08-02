@@ -9,8 +9,11 @@ onChangeBasemap in in Map-Komponente. basemap ist ein Model.
 
 ## Entwicklung
 
+- http://localhost:8080/?bl=ch.so.agi.hintergrundkarte_ortho
+- http://localhost:8080/?bl=ch.so.agi.hintergrundkarte_ortho&l=ch.so.afu.ewsabfrage.abfrage%5B50%5D,ch.so.afu.gewaesserschutz.schutzareale%21,ch.so.afu.gewaesserschutz.schutzzonen,ch.so.afu.altlasten.standorte
+
 ### Run 
-4
+
 First Terminal:
 ```
 ./mvnw spring-boot:run -pl *-server -am -Penv-dev 

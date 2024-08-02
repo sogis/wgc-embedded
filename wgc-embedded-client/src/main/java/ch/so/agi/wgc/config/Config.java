@@ -13,6 +13,9 @@ public class Config {
     @JsProperty
     public Basemap[] basemaps;
     
+    @JsProperty
+    public String baseUrlWms;
+    
     /*
      * Momentan nur Layer vom gleichen WMTS möglich.
      * Sonstige Config (z.B. scales) sind hardcodiert.

@@ -7,12 +7,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.gwt.regexp.shared.MatchResult;
+import com.google.gwt.regexp.shared.RegExp;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Window;
 
 import ch.so.agi.wgc.components.MapComponent;
 import ch.so.agi.wgc.config.Config;
 import ch.so.agi.wgc.config.ConfigManager;
+import ch.so.agi.wgc.models.WmsLayer;
 import ch.so.agi.wgc.state.StateManager;
 import elemental2.core.Global;
 import elemental2.dom.DomGlobal;
@@ -50,31 +54,53 @@ public class App implements EntryPoint {
     }
     
     private void init() {
-
-        console.log("Hallo Welt.");
-        console.log("fubar");
-
-        
         MapComponent mapComponent = new MapComponent();
         
         String bgLayer = null;
-        if (Window.Location.getParameter("bgLayer") != null) {
-            bgLayer = Window.Location.getParameter("bgLayer").toString();
+        if (Window.Location.getParameter("bl") != null) {
+            bgLayer = Window.Location.getParameter("bl").toString();
+            stateManager.setState(StateManager.PARAM_ACTIVE_BASEMAP, bgLayer);
         }
-        stateManager.setState(StateManager.PARAM_ACTIVE_BASEMAP, bgLayer);
         
-        List<String> layerList = new ArrayList<String>();
-        if (Window.Location.getParameter("layers") != null) {
-            String layers = Window.Location.getParameter("layers").toString();
-            layerList = Arrays.asList(layers.split(",", -1));
+        List<WmsLayer> wmsLayerList = new ArrayList<WmsLayer>();
+        if (Window.Location.getParameter("l") != null) {
+            String layersParam = Window.Location.getParameter("l");
+            if (layersParam != null) {
+                List<String> layerParamList = Arrays.asList(layersParam.split(",", -1));        
+                
+                for (String layerParam : layerParamList) {                   
+                    // layerParam is not visible
+                    boolean isVisible = true;
+                    if (layerParam.endsWith("!")) {
+                        isVisible = false;
+                    }
+                    
+                    // get the transparency of layer
+                    int transparency = 0;
+                    RegExp regExp = RegExp.compile("\\[(\\d+)\\]");
+                    MatchResult matcher = regExp.exec(layerParam);
+                    if (matcher != null) {
+                        transparency = Integer.valueOf(matcher.getGroup(1));
+                    } 
+                    
+                    // get layer name
+                    String layerName = layerParam;
+                    regExp = RegExp.compile("^[^\\[\\!]*");
+                    matcher = regExp.exec(layerParam);
+                    if (matcher != null) {
+                        String result = matcher.getGroup(0);
+                        layerName = result;
+                    } 
+                    
+                    String baseUrlWms = ConfigManager.getInstance().getConfig().baseUrlWms;
+                    
+                    WmsLayer wmsLayer = new WmsLayer(layerName, baseUrlWms, isVisible, transparency);
+                    wmsLayerList.add(wmsLayer);
+                }
+                stateManager.setState(StateManager.PARAM_ACTIVE_LAYERS, wmsLayerList);
+            }
         }
-        stateManager.setState(StateManager.PARAM_ACTIVE_LAYERS, layerList);
-        
-
-        // TODO: api eher wie bei uns [xx] und !.
-        // Layermodell mit den notwendigen Parametern (name, opacity, visibilty)
-        // Liste von layermodell in den State.
-        
+                
 //        body().add(TextBox.create().setLabel("User name")
 //                                .setPlaceholder("Username").element());        
     }

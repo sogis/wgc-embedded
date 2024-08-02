@@ -7,11 +7,9 @@ import static elemental2.dom.DomGlobal.console;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.so.agi.wgc.MapManager;
-import ch.so.agi.wgc.ViewManager;
-import ch.so.agi.wgc.WmtsManager;
 import ch.so.agi.wgc.config.Config;
 import ch.so.agi.wgc.config.ConfigManager;
+import ch.so.agi.wgc.models.WmsLayer;
 import ch.so.agi.wgc.state.StateManager;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
@@ -29,7 +27,9 @@ public class MapComponent implements IsElement<HTMLElement> {
     private StateManager stateManager;
     
     private WmtsManager wmtsManager;
-    
+
+    private WmsManager wmsManager;
+
     private ol.Map olMap;
     
     private HTMLDivElement mapTarget;
@@ -41,17 +41,14 @@ public class MapComponent implements IsElement<HTMLElement> {
                 
         olMap = mapManager.getMap();
         olMap.setTarget("ol-map");
-
         viewManager = new ViewManager(olMap);
-
         View view = viewManager.getView();
         olMap.setView(view);
-
         wmtsManager = new WmtsManager(olMap);
+        wmsManager = new WmsManager(olMap);
 
         stateManager.subscribe(StateManager.PARAM_ACTIVE_BASEMAP, (oldBasemap, newBasemap) -> onAddBasemap((String)newBasemap));
-        
-        stateManager.subscribe(StateManager.PARAM_ACTIVE_LAYERS, (oldActiveLayers, newActiveLayers) -> onAddActiveLayers((List<String>)newActiveLayers));
+        stateManager.subscribe(StateManager.PARAM_ACTIVE_LAYERS, (oldForegroundLayers, newForegroundLayers) -> onForegroundLayers((List<WmsLayer>)newForegroundLayers));
     }
     
     @Override
@@ -63,7 +60,8 @@ public class MapComponent implements IsElement<HTMLElement> {
         wmtsManager.addBasemapLayer(newBasemap);        
     }
     
-    private void onAddActiveLayers(List<String> newActiveLayers) {
-        console.log(newActiveLayers);
+    private void onForegroundLayers(List<WmsLayer> newForegroundLayers) {
+        console.log(newForegroundLayers);
+        wmsManager.addForegroundLayers(newForegroundLayers);
     }
 }

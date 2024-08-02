@@ -1,4 +1,4 @@
-package ch.so.agi.wgc;
+package ch.so.agi.wgc.components;
 
 import ol.Collection;
 import ol.MapOptions;

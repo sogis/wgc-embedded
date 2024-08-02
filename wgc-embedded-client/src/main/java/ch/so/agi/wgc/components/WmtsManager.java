@@ -1,4 +1,4 @@
-package ch.so.agi.wgc;
+package ch.so.agi.wgc.components;
 
 import ch.so.agi.wgc.config.Config;
 import ch.so.agi.wgc.config.ConfigManager;
@@ -31,7 +31,7 @@ public class WmtsManager {
         double resolutions[] = config.basemaps[0].resolutions;
         
         WmtsOptions wmtsOptions = OLFactory.createOptions();
-        wmtsOptions.setUrl("https://geo.so.ch/api/wmts/1.0.0/{Layer}/default/2056/{TileMatrix}/{TileRow}/{TileCol}");
+        wmtsOptions.setUrl(config.basemaps[0].url);
         wmtsOptions.setLayer(layerId);
         wmtsOptions.setRequestEncoding("REST");
         wmtsOptions.setFormat("image/png");
