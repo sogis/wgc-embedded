@@ -16,7 +16,7 @@ import elemental2.dom.URLSearchParams;
 import static org.jboss.elemento.Elements.*;
 import static elemental2.dom.DomGlobal.console;
 
-public class JumpLinkComponent implements IsElement<HTMLElement>, Attachable {
+public class JumpLinkComponent {
     private HTMLElement root;    
     private HTMLAnchorElement anchorElement;
 
@@ -38,20 +38,15 @@ public class JumpLinkComponent implements IsElement<HTMLElement>, Attachable {
                 .add(img().attr("src", imageUrl).attr("width", "16"))
                 .add(span().add(anchorElement))
                 .element();
+        
+        body().add(root);
     }
-    
-    @Override
-    public void attach(MutationRecord mutationRecord) {
-    }
-
-    @Override
-    public HTMLElement element() {
-        return root;
-    }
-    
+        
     private void onChangeBrowserUrl(String newBrowserUrl) {
         String baseUrlWgc = config.baseUrlWgc;        
         String urlWgc = baseUrlWgc;
+        
+        //console.log("2: " + newBrowserUrl);
         
         // TODO
         // Vielleicht am falschen Ort. Jetzt wird es jedes Mal ausgeführt.

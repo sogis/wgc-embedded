@@ -1,8 +1,6 @@
 package ch.so.agi.wgc.components.map;
 
-import org.jboss.elemento.IsElement;
 
-import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Window;
 
 import static elemental2.dom.DomGlobal.console;
@@ -14,13 +12,12 @@ import ch.so.agi.wgc.models.WmsLayer;
 import ch.so.agi.wgc.state.StateManager;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
 import ol.Coordinate;
 import ol.Extent;
 import ol.MapEvent;
 import ol.View;
 
-public class MapComponent implements IsElement<HTMLElement> {
+public class MapComponent {
 
     private ConfigManager configManager;
     
@@ -52,7 +49,6 @@ public class MapComponent implements IsElement<HTMLElement> {
         wmsManager = new WmsManager(olMap);
         
         olMap.addMoveEndListener(new ol.event.EventListener<MapEvent>() {
-
             @Override
             public void onEvent(MapEvent event) {
                 String newUrl = Window.Location.getProtocol() + "//" + Window.Location.getHost() + Window.Location.getPath();
@@ -63,8 +59,14 @@ public class MapComponent implements IsElement<HTMLElement> {
                 for (int i=0; i<wmsLayers.size(); i++) {
                     WmsLayer wmsLayer = wmsLayers.get(i);
                     String layerName = wmsLayer.getName();
+                    String baseUrl = wmsLayer.getBaseUrl();
                     int transparency = wmsLayer.getTransparency();
-                    boolean isVisible = wmsLayer.getIsVisible();
+                    boolean isVisible = wmsLayer.isVisible();
+                    boolean isExternal = wmsLayer.isExternal();
+                    
+                    if (isExternal) {
+                        layerName = "wms:" + baseUrl + "%23" + layerName;
+                    }
                     
                     if (transparency > 0) {
                         layerName += "%5B" + String.valueOf(transparency) + "%5D";
@@ -95,7 +97,7 @@ public class MapComponent implements IsElement<HTMLElement> {
                 newUrl += "&s=" + String.valueOf(scale);
 
                 // Dann wird es nochmals encoded und funktioniert nicht mehr.
-                String newUrlEncoded = URL.encode(newUrl);
+//                String newUrlEncoded = URL.encode(newUrl);
                 
                 stateManager.setState(StateManager.PARAM_BROWSER_URL, newUrl);
             }    
@@ -109,12 +111,7 @@ public class MapComponent implements IsElement<HTMLElement> {
         //stateManager.subscribe(StateManager.PARAM_MAP_ZOOM_LEVEL, (oldMapZoomLevel, newMapZoomLevel) -> onChangeZoomLevel((int) newMapZoomLevel));
         stateManager.subscribe(StateManager.PARAM_MAP_SCALE, (oldMapScale, newMapScale) -> onChangeScale((int) newMapScale));
     }
-    
-    @Override
-    public HTMLElement element() {
-        return mapTarget;
-    }
-    
+        
     private void onAddBasemap(String newBasemap) {
         wmtsManager.addBasemapLayer(newBasemap);        
     }

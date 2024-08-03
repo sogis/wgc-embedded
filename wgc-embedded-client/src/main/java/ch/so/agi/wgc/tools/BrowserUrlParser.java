@@ -13,6 +13,8 @@ import ch.so.agi.wgc.models.WmsLayer;
 import ch.so.agi.wgc.state.StateManager;
 import ol.Coordinate;
 
+import static elemental2.dom.DomGlobal.console;
+
 public class BrowserUrlParser {
     private static StateManager stateManager;
 
@@ -26,13 +28,13 @@ public class BrowserUrlParser {
             bgLayer = Window.Location.getParameter("bl").toString();
             stateManager.setState(StateManager.PARAM_ACTIVE_BASEMAP, bgLayer);
         }
-
+        
         List<WmsLayer> wmsLayerList = new ArrayList<WmsLayer>();
         if (Window.Location.getParameter("l") != null) {
-            String layersParam = Window.Location.getParameter("l");
+            String layersParam = Window.Location.getParameter("l");            
             if (layersParam != null) {
                 List<String> layerParamList = Arrays.asList(layersParam.split(",", -1));        
-                for (String layerParam : layerParamList) {                   
+                for (String layerParam : layerParamList) {                                       
                     // layerParam is not visible
                     boolean isVisible = true;
                     if (layerParam.endsWith("!")) {
@@ -47,18 +49,30 @@ public class BrowserUrlParser {
                         transparency = Integer.valueOf(matcher.getGroup(1));
                     } 
                     
-                    // get layer name
+                    // get layer name and wms base url
                     String layerName = layerParam;
+                    String baseUrlWms = null;
+                    boolean isExternal = false;
+                    if (!layerParam.startsWith("wms:")) {
+                        baseUrlWms = ConfigManager.getInstance().getConfig().baseUrlWms;
+                    }
+
+                    if (layerParam.startsWith("wms:")) {                        
+                        isExternal = true;
+                        layerParam = layerParam.substring(4);                            
+                        String layerParams[] = layerParam.split("#");
+                        baseUrlWms = layerParams[0];
+                        layerName = layerParams[1];    
+                    }
+                    
                     regExp = RegExp.compile("^[^\\[\\!]*");
-                    matcher = regExp.exec(layerParam);
+                    matcher = regExp.exec(layerName);
                     if (matcher != null) {
                         String result = matcher.getGroup(0);
                         layerName = result;
                     } 
-                    
-                    String baseUrlWms = ConfigManager.getInstance().getConfig().baseUrlWms;
-                    
-                    WmsLayer wmsLayer = new WmsLayer(layerName, baseUrlWms, isVisible, transparency);
+
+                    WmsLayer wmsLayer = new WmsLayer(layerName, baseUrlWms, isVisible, transparency, isExternal);
                     wmsLayerList.add(wmsLayer);
                 }
                 stateManager.setState(StateManager.PARAM_ACTIVE_FOREGROUND_LAYERS, wmsLayerList);

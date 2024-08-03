@@ -48,7 +48,7 @@ public class WmsManager {
             //wmsLayer.set(ID_ATTR_NAME, id);
             double opacity = 1.0 - (forgroundLayer.getTransparency() / 100.0);
             wmsLayer.setOpacity(opacity);
-            wmsLayer.setVisible(forgroundLayer.getIsVisible());
+            wmsLayer.setVisible(forgroundLayer.isVisible());
             
             olMap.addLayer(wmsLayer);
         }

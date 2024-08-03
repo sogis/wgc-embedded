@@ -9,11 +9,14 @@ public abstract class BaseLayer {
     
     protected int transparency;
     
-    public BaseLayer(String name, String baseUrl, boolean isVisible, int transparency) {
+    protected boolean isExternal;
+    
+    public BaseLayer(String name, String baseUrl, boolean isVisible, int transparency, boolean isExternal) {
         this.name = name;
         this.baseUrl = baseUrl;
         this.isVisible = isVisible;
         this.transparency = transparency;
+        this.isExternal = isExternal;
     }
 
     public String getName() {
@@ -32,11 +35,11 @@ public abstract class BaseLayer {
         this.baseUrl = baseUrl;
     }
 
-    public boolean getIsVisible() {
+    public boolean isVisible() {
         return isVisible;
     }
 
-    public void setIsVisible(boolean isVisible) {
+    public void setVisible(boolean isVisible) {
         this.isVisible = isVisible;
     }
 
@@ -46,5 +49,13 @@ public abstract class BaseLayer {
 
     public void setTransparency(int transparency) {
         this.transparency = transparency;
+    }
+
+    public boolean isExternal() {
+        return isExternal;
+    }
+
+    public void setExternal(boolean isExternal) {
+        this.isExternal = isExternal;
     }
 }

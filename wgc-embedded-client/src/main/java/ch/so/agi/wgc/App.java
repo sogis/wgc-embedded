@@ -60,7 +60,6 @@ public class App implements EntryPoint {
     private void init() {
         MapComponent mapComponent = new MapComponent();
         JumpLinkComponent wgcLinkComponent = new JumpLinkComponent();
-        body().add(wgcLinkComponent.element());
         
         // Updates the url when map is zoomed or panned.
         BrowserUrlUpdater browserUrlUpdater = new BrowserUrlUpdater();
