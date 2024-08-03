@@ -1,15 +1,15 @@
-package ch.so.agi.wgc.components.browser;
+package ch.so.agi.wgc.tools;
 
 import ch.so.agi.wgc.state.StateManager;
 
 import static elemental2.dom.DomGlobal.console;
 
-public class BrowserUrlComponent {
+public class BrowserUrlUpdater {
     private static StateManager stateManager;
     
     private ol.Map map;
 
-    public BrowserUrlComponent() {
+    public BrowserUrlUpdater() {
         stateManager = StateManager.getInstance();
         stateManager.subscribe(StateManager.PARAM_BROWSER_URL, (oldBrowserUrl, newBrowserUrl) -> onChangeBrowserUrl((String)newBrowserUrl));
     }

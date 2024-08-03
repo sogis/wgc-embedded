@@ -1,4 +1,4 @@
-package ch.so.agi.wgc.components.wgc;
+package ch.so.agi.wgc.components.jumplink;
 
 import org.jboss.elemento.Attachable;
 import org.jboss.elemento.IsElement;
@@ -16,7 +16,7 @@ import elemental2.dom.URLSearchParams;
 import static org.jboss.elemento.Elements.*;
 import static elemental2.dom.DomGlobal.console;
 
-public class WgcLinkComponent implements IsElement<HTMLElement>, Attachable {
+public class JumpLinkComponent implements IsElement<HTMLElement>, Attachable {
     private HTMLElement root;    
     private HTMLAnchorElement anchorElement;
 
@@ -24,7 +24,7 @@ public class WgcLinkComponent implements IsElement<HTMLElement>, Attachable {
     private Config config;
     private StateManager stateManager;
 
-    public WgcLinkComponent() {
+    public JumpLinkComponent() {
         configManager = ConfigManager.getInstance();
         config = configManager.getConfig();
         
