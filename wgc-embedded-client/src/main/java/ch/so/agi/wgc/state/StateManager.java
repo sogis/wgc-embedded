@@ -72,4 +72,5 @@ public class StateManager {
     public static final String PARAM_MAP_ZOOM_LEVEL = "mapZoomLevel";
     public static final String PARAM_MAP_SCALE = "mapScale";
     public static final String PARAM_BROWSER_URL = "browserUrl";
+    public static final String PARAM_CLICKED_COORD = "clickedCoordinate";
 }

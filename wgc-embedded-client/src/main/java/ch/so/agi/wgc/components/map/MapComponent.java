@@ -14,6 +14,7 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import ol.Coordinate;
 import ol.Extent;
+import ol.MapBrowserEvent;
 import ol.MapEvent;
 import ol.View;
 
@@ -47,6 +48,14 @@ public class MapComponent {
         olMap.setView(view);
         wmtsManager = new WmtsManager(olMap);
         wmsManager = new WmsManager(olMap);
+        
+        olMap.addClickListener(new ol.event.EventListener<MapBrowserEvent>() {
+            @Override
+            public void onEvent(MapBrowserEvent event) {
+                stateManager.setState(StateManager.PARAM_CLICKED_COORD, event.getCoordinate());
+            }       
+        });
+
         
         olMap.addMoveEndListener(new ol.event.EventListener<MapEvent>() {
             @Override

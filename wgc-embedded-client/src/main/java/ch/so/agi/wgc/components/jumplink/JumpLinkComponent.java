@@ -1,8 +1,5 @@
 package ch.so.agi.wgc.components.jumplink;
 
-import org.jboss.elemento.Attachable;
-import org.jboss.elemento.IsElement;
-
 import ch.so.agi.wgc.config.Config;
 import ch.so.agi.wgc.config.Config.BasemapLayer;
 import ch.so.agi.wgc.config.ConfigManager;
@@ -27,10 +24,10 @@ public class JumpLinkComponent {
     public JumpLinkComponent() {
         configManager = ConfigManager.getInstance();
         config = configManager.getConfig();
-        
+                
         stateManager = StateManager.getInstance();
         stateManager.subscribe(StateManager.PARAM_BROWSER_URL, (oldBrowserUrl, newBrowserUrl) -> onChangeBrowserUrl((String)newBrowserUrl));
-        
+
         String imageUrl = "favicon-16x16.png";  
         String href = (String) stateManager.getState(StateManager.PARAM_BROWSER_URL);
         anchorElement = a().css("wgcLink").attr("href", href).attr("target", "_blank").add(span().textContent("In geo.so.ch/map ansehen")).element();
@@ -39,7 +36,7 @@ public class JumpLinkComponent {
                 .add(span().add(anchorElement))
                 .element();
         
-        body().add(root);
+        body().add(root);        
     }
         
     private void onChangeBrowserUrl(String newBrowserUrl) {

@@ -19,6 +19,12 @@ public class Config {
     @JsProperty
     public String baseUrlWgc;
     
+    @JsProperty
+    public String baseUrlFeatureInfo;
+    
+    @JsProperty 
+    public String baseUrlReport;
+    
     /*
      * Momentan nur Layer vom gleichen WMTS möglich.
      * Sonstige Config (z.B. scales) sind hardcodiert.

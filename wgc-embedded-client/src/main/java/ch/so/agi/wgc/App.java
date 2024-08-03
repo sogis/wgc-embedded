@@ -15,6 +15,7 @@ import com.google.gwt.user.client.Window;
 
 import ch.so.agi.wgc.tools.BrowserUrlParser;
 import ch.so.agi.wgc.tools.BrowserUrlUpdater;
+import ch.so.agi.wgc.components.featureinfo.FeatureInfoComponent;
 import ch.so.agi.wgc.components.jumplink.JumpLinkComponent;
 import ch.so.agi.wgc.components.map.MapComponent;
 import ch.so.agi.wgc.config.Config;
@@ -40,7 +41,10 @@ public class App implements EntryPoint {
         host = url.host;
         protocol = url.protocol;
         pathname = url.pathname.length()==1?"":url.pathname;
-
+        if (pathname.contains("index.html")) {
+            pathname = pathname.replace("/index.html", "");
+        }
+        
         stateManager = StateManager.getInstance();
         stateManager.setState(StateManager.PARAM_APP_BASE_URL, protocol + "//" + host + pathname);
         
@@ -60,6 +64,7 @@ public class App implements EntryPoint {
     private void init() {
         MapComponent mapComponent = new MapComponent();
         JumpLinkComponent wgcLinkComponent = new JumpLinkComponent();
+        FeatureInfoComponent featureInfoComponent = new FeatureInfoComponent();
         
         // Updates the url when map is zoomed or panned.
         BrowserUrlUpdater browserUrlUpdater = new BrowserUrlUpdater();
@@ -67,9 +72,5 @@ public class App implements EntryPoint {
         // Parses the url and sets various states.
         BrowserUrlParser browserUrlParser = new BrowserUrlParser();
         browserUrlParser.parse();
-        
-        
-//        body().add(TextBox.create().setLabel("User name")
-//                                .setPlaceholder("Username").element());        
     }    
 }
