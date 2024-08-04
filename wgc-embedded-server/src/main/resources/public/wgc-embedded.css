@@ -4,7 +4,7 @@ html,
 body {
     margin: 0;
     padding: 0px;
-    background: #FFFFFF;
+    background-color: #FFFFFF;
     height: 100%; 
     /*
     font-smooth: auto;
@@ -73,4 +73,131 @@ a.wgcLink:visited {
     color: black; 
     text-decoration: none !important;
 }      
+
+#feature-info-response {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    border-radius: 3px;
+    font-weight: normal;
+    font-size: 11px;
+    width: 100%;
+    color: #333333;
+    width: 450px;
+    max-width: /*450px;*/ calc(100% - 10px);
+    min-width: 260px;
+    max-height: calc(100% - 10px); /* muss noch aus Code entfernt werden. */
+    background-color: #FFFFFF;
+    overflow: auto;
+    
+}
+
+#feature-info-response-header {
+    display: flex;
+    width: 100%;      
+    border-radius: 3px 3px 0px 0px;
+    font-weight: bold;
+    font-size: 13px;
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    color: #333333;
+    background-color: rgb(247, 247, 247);
+}
+        
+#feature-info-response-header-text-span {
+    width: 70%;        
+    padding-left: 10px;
+    font-weight: bold;
+    line-height: 40px;
+}
+
+#feature-info-response-close-icon {
+    cursor: pointer;
+}
+
+#feature-info-response-header-button-span {
+    width: 30%;
+    text-align: right;
+    margin: 0px;
+    padding-right: 10px;
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+    vertical-align: middle;  
+}
+
+.feature-info-response-layer-header {
+    padding-left: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #333333;
+    background-color: #E9E9E9;
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    vertical-align: middle;  
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.feature-info-response-content {
+    padding: 10px;
+}
+
+table.attribute-list {
+    width: 100%;
+}
+
+table.attribute-list td {
+    overflow: hidden;
+    vertical-align: top;
+    text-overflow: ellipsis;
+}
+
+td.identify-attr-title {
+    padding-right: 10px;
+    min-width: 10ch;
+    width: 40%;
+    padding-right: 1em;
+    font-style: bold;
+}
+
+td.identify-attr-value {
+    max-width: 0;
+    width: 60%;
+}
+
+a {
+    cursor: pointer;
+    color: #e53935;
+    text-decoration: none;
+}
+
+a:hover {
+    cursor: pointer;
+    color: #e53935;
+    text-decoration: underline;
+}
+
+i {
+	font-style: normal;
+}
+
+.feature-info-response-report-button {
+  background-color: #FFFFFF;
+  border: 1px solid #e53935;
+  color: #e53935;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
 
