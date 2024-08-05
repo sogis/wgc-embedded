@@ -23,8 +23,9 @@ Falls man von aussen das config.json setzen will. Ohne diese Angabe wird eine in
 
 ### Docker (nur Native Image)
 
+```
 
-
+```
 
 ## Entwicklung
 
@@ -73,6 +74,8 @@ Und anschliessendes `kill -9 <PID>`.
 ```
 ./mvnw test
 ```
+
+Siehe dazu v.a. auch das Github Action Yaml. 
 
 ## Beispiele
 

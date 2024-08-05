@@ -230,8 +230,37 @@
                             </execution>
                         </executions>
                     </plugin>
+                    
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>docker-image-app</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>docker</executable>
+                            <arguments>
+                                <argument>build</argument>
+                                <argument>-t</argument>
+                                <argument>sogis/wgc-embedded</argument>
+                                <argument>-f</argument>
+                                <argument>Dockerfile.native</argument>
+                                <argument>.</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
                 </plugins>
             </build>
+
+
 
             <!--
       <dependencies>
