@@ -104,6 +104,13 @@ Und anschliessendes `kill -9 <PID>`.
 
 Siehe dazu v.a. auch das Github Action Yaml. 
 
+## Konfiguration und Betrieb in der GDI
+- Openshift-Template:
+- nginx-conf: 
+- Liveness- und Readyness-Probe:
+  * http://localhost:8080/actuator/health/livenessState 
+  * http://localhost:8080/actuator/health/readinessState
+
 ## Interne Struktur
 
 Spring Boot (also Tomcat) wird vor allem für das Ausliefern des Javascriptes und der Webseite verwendet. Sonstige Businesslogik ist serverseitg kaum vorhanden. Einzig die Konfiguration (siehe ConfigController) der Anwendung wird mit Spring Boot gemacht.
