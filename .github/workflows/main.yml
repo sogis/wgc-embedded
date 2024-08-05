@@ -19,6 +19,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - name: Print new build number
         run: echo "Build number is $BUILD_NUMBER"
