@@ -7,19 +7,18 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@ActiveProfiles("test")
-public class ApplicationTests {
-    
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public abstract class ApplicationTests {
+    static Logger logger = LoggerFactory.getLogger(ApplicationTests.class);
+
     @LocalServerPort
     protected String port;
 
@@ -27,7 +26,7 @@ public class ApplicationTests {
 
     protected ObjectMapper mapper;
 
-    public ApplicationTests(@Autowired TestRestTemplate restTemplate, @Autowired ObjectMapper mapper) {
+    public ApplicationTests(TestRestTemplate restTemplate, ObjectMapper mapper) {
         this.restTemplate = restTemplate;
         this.mapper = mapper;
     }

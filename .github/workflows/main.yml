@@ -3,8 +3,8 @@ name: wgc-embedded
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    paths-ignore:
+      - '**.md'
 
 jobs:
   build:
@@ -27,3 +27,15 @@ jobs:
           REMOTE: "https://codeberg.org/edigonzales/wgc-embedded.git"
           GIT_USERNAME: ${{ secrets.CODEBERG_USER }}
           GIT_PASSWORD: ${{ secrets.CODEBERG_PASSWORD }}
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      - name: Test and build Jar
+        run: |
+          ./mvnw clean test -DexcludedGroups="docker"
+          ./mvnw -Penv-prod clean package -DexcludedGroups="docker"
+          ls -la wgc-embedded-server/target

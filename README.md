@@ -2,19 +2,27 @@
 
 ## Konfigurieren und Starten
 
+### Optionen (Umgebungsvariablen)
 
-
-app.configResource=${CONFIG_RESOURCE:file:./src/test/resources/config.json}
-
+| Name | Beschreibung | Standard |
+|-----|-----|-----|
+| `CONFIG_RESOURCE` | Resourcen-Pfad zur config.json-Datei. Falls eine Datei ausserhalb der Anwendung verwendet werden soll, muss `file:` verwendet werden. In der Anwendung sind "-prod", "-int" und "-test" vorhanden. | `classpath:/config.json` |
 
 ### JVM
+
+```
+java -jar wgc-embedded-server/target/wgc-embedded-exec.jar
+```
 
 ### Native
 
 ```
 CONFIG_RESOURCE=file:/Users/stefan/tmp/config.json ./wgc-embedded-server/target/wgc-embedded-server
 ```
-Falls man von aussen das config.json setzten will. Ohne diese Angabe wird eine interne config.json-Datei verwendet.
+Falls man von aussen das config.json setzen will. Ohne diese Angabe wird eine interne config.json-Datei verwendet.
+
+### Docker (nur Native Image)
+
 
 
 
