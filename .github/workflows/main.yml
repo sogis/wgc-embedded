@@ -9,7 +9,13 @@ on:
 jobs:
   build:
     env:
+      DOCKER_ACCOUNT: sogis
+      DOCKER_REPO: wgc-embedded
+      DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}} 
       BUILD_NUMBER: ${{ github.run_number }}
+      MAJOR_NUMBER: "2"
+      MINOR_NUMBER: "0"
 
     runs-on: ubuntu-latest
 
@@ -40,3 +46,10 @@ jobs:
           ./mvnw clean test -DexcludedGroups="docker"
           ./mvnw -Penv-prod,native clean package -DexcludedGroups="docker"
           ls -la wgc-embedded-server/target
+
+      - name: List Docker images
+        run: |
+          docker images
+
+      - name: Test Docker image
+        run: ./mvnw test -Dgroups="docker"
