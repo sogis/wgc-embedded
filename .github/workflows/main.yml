@@ -89,11 +89,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           pull: true
           push: ${{ (github.ref == 'refs/heads/main') && (github.event_name != 'pull_request') && !env.ACT }}
-          # tags: |
-          #   ${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:latest
-          #   ${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:${{ env.MAJOR_NUMBER }}.${{ env.MINOR_NUMBER }}.${{ env.BUILD_NUMBER }}
-          #   ${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:${{ env.MAJOR_NUMBER }}.${{ env.MINOR_NUMBER }}
-          #   ${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:${{ env.MAJOR_NUMBER }}
           tags: |
             ${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:latest
             ${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:${{ env.MAJOR_NUMBER }}.${{ env.MINOR_NUMBER }}.${{ env.BUILD_NUMBER }}
