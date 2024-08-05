@@ -31,13 +31,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Mirror commits to Codeberg
-        uses: spyoungtech/mirror-action@v0.7.0
-        with:
-          REMOTE: "https://codeberg.org/edigonzales/wgc-embedded.git"
-          GIT_USERNAME: ${{ secrets.CODEBERG_USER }}
-          GIT_PASSWORD: ${{ secrets.CODEBERG_PASSWORD }}
-
       - uses: graalvm/setup-graalvm@v1
         with:
           java-version: '21'     
