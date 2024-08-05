@@ -1,5 +1,23 @@
 # wgc-embedded
 
+## Konfigurieren und Starten
+
+
+
+app.configResource=${CONFIG_RESOURCE:file:./src/test/resources/config.json}
+
+
+### JVM
+
+### Native
+
+```
+CONFIG_RESOURCE=file:/Users/stefan/tmp/config.json ./wgc-embedded-server/target/wgc-embedded-server
+```
+Falls man von aussen das config.json setzten will. Ohne diese Angabe wird eine interne config.json-Datei verwendet.
+
+
+
 ## Entwicklung
 
 ### Run 
@@ -26,6 +44,27 @@ netstat -vanp tcp | grep 9876
 ```
 
 Und anschliessendes `kill -9 <PID>`.
+
+### Build
+
+#### JVM
+
+```
+./mvnw -Penv-prod package -DskipTests
+```
+
+#### Native
+
+```
+./mvnw -Penv-prod,native package -DskipTests
+```
+
+
+### Test
+
+```
+./mvnw test
+```
 
 ## Beispiele
 
