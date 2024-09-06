@@ -1,5 +1,7 @@
 FROM redhat/ubi9-minimal:9.4
 
+RUN microdnf reinstall tzdata -y
+
 ARG UID=1001
 RUN adduser -u $UID wgc 
 
