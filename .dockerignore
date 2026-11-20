@@ -1,0 +1,5 @@
+.git
+node_modules
+dist
+icons/build
+.DS_Store

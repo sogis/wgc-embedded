@@ -1,0 +1,106 @@
+name: Build and publish wgc-embedded v3
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wgc-embedded-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Build and start the actual container
+        run: docker compose up -d --build
+      - name: Wait for legacy readiness endpoint
+        run: >-
+          curl --fail --silent --show-error --output /dev/null
+          --retry 20 --retry-all-errors --retry-delay 2 --max-time 5
+          http://127.0.0.1:8080/actuator/health/readinessState
+      - name: Check arm64 image build without emulation
+        run: docker build --platform linux/arm64 .
+      - run: npx playwright install --with-deps --only-shell chromium
+      - name: Probe, browser and integration tests
+        env:
+          EMBED_ORIGIN: http://127.0.0.1:8080
+        run: npm test
+      - name: Container logs
+        if: failure()
+        run: docker compose logs --no-color
+      - name: Stop test container
+        if: always()
+        run: docker compose down
+
+  publish:
+    needs: test
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      packages: write
+    env:
+      RELEASE_TAGS: |
+        sogis/wgc-embedded:3
+        sogis/wgc-embedded:3.1
+        sogis/wgc-embedded:3.1.${{ github.run_id }}
+        sogis/wgc-embedded:latest
+        ghcr.io/sogis/wgc-embedded:3
+        ghcr.io/sogis/wgc-embedded:3.1
+        ghcr.io/sogis/wgc-embedded:3.1.${{ github.run_id }}
+        ghcr.io/sogis/wgc-embedded:latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Log in to Docker Hub
+        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Log in to GHCR
+        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - name: Build and publish version 3.1
+        id: release
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ env.RELEASE_TAGS }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/sogis/wgc-embedded
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.version=3.1.${{ github.run_id }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Summarize release
+        env:
+          IMAGE_DIGEST: ${{ steps.release.outputs.digest }}
+        run: |
+          {
+            printf '### wgc-embedded 3.1\n\nDigest: `%s`\n\n' "$IMAGE_DIGEST"
+            printf '```text\n%s```\n' "$RELEASE_TAGS"
+          } >> "$GITHUB_STEP_SUMMARY"

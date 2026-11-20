@@ -1,0 +1,5 @@
+services:
+  embed:
+    build: .
+    ports:
+      - "127.0.0.1:${EMBED_PORT:-8080}:8080"
